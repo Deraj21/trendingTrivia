@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/styles/reset.css">
-  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="./styles/reset.css">
+  <link rel="stylesheet" href="./styles/main.css">
   <title>Trivia Trends</title>
-  <link rel="shortcut icon" href="/styles/assets/crownFavicon.png">
+  <link rel="shortcut icon" href="./styles/assets/crownFavicon.png">
 </head>
 
-<body>
+<body ng-app="myApp" ng-controller="questionController">
   <header>
     <div></div>
     <h1>Trivia Trends</h1>
@@ -17,47 +17,60 @@
   </header>
   <article>
     <nav>
-      <a>All Questions</a>
-      <a>Easy</a>
-      <a>Medium</a>
-      <a>Hard</a>
+      <a ng-click="filterByDifficulty('')">All Questions</a>
+      <a ng-click="filterByDifficulty('1')">Easy</a>
+      <a ng-click="filterByDifficulty('2')">Medium</a>
+      <a ng-click="filterByDifficulty('3')">Hard</a>
+      <p>{{difficultyFilter}}</p>
       <a>Search by Animal</a>
     </nav>
     <div class="search">
       <input type="text" placeholder="Animal to search by">
     </div>
 
-    <!-- Questions go here -->
+    <div class="question-wrapper" ng-repeat="question in questions">
+      <h3>{{question.question}}</h3>
+      <div >{{difficultyText(question.difficulty)}}</div>
+      <div class="gear" >
+        <img src="./styles/assets/gear.svg" alt="">
+      </div>
+      <ul>
+        <li ng-repeat="(key, val) in question.options"> <!-- Repeated for each option -->
+          <input type="radio">
+            <label>{{val}}</label>
+        </li>
+      </ul>
+    </div>
 
   </article>
 
   <div class="modal">
     <form>
       <h4 class="close">X</h4>
-      <span>Question</span><input type="text" ng-model="<!-- Question -->">
-      <span>Animal it's about</span><input type="text" ng-model="<!-- Animal -->">
+      <span>Question</span><input type="text" ng-model="newQuestion.question"><!-- Question -->
+      <span>Animal it's about</span><input type="text" ng-model="newQuestion.animal"><!-- Animal -->
       <span>Difficulty</span>
       <div class="range">
-        <input type="range" min="1" max="3" ng-model="<!-- Difficulty -->">
+        <input type="range" min="1" max="3" ng-model="newQuestion.difficulty"><!-- Difficulty -->
 
         <h5>{{newQuestion.difficulty}}</h5>
       </div>
       <h4>Options</h4>
       <div>
-        <input type="radio" ng-model="" value="1">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="one" value="1">
+        <input type="text" ng-model="newQuestion.options[0]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="2">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="two" value="2">
+        <input type="text" ng-model="newQuestion.options[1]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="3">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="three" value="3">
+        <input type="text" ng-model="newQuestion.options[2]">
       </div>
       <div>
-        <input type="radio" ng-model="" value="4">
-        <input type="text" ng-model="">
+        <input type="radio" ng-model="four" value="4">
+        <input type="text" ng-model="newQuestion.options[3]">
       </div>
 
       <!--Add question buttons-->
@@ -77,11 +90,10 @@
   </div>
 
 
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js" charset="utf-8"></script>
-  <script src="./app.js" charset="utf-8"></script>
+  <script src="./app/app.js"></script>
+  <script src="./app/questionController.js"></script>
+  <script src="./app/questionService.js"></script>
 </body>
 
 </html>

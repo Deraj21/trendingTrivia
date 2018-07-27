@@ -13,7 +13,7 @@
   <header>
     <div></div>
     <h1>Trivia Trends</h1>
-    <button><span>+</span> Add Question</button>
+    <button ng-click="showModal()"><span>+</span> Add Question</button>
   </header>
   <article>
     <nav>
@@ -46,7 +46,7 @@
 
   <div class="modal">
     <form>
-      <h4 class="close">X</h4>
+      <h4 class="close" ng-click="hideModal()">X</h4>
       <span>Question</span><input type="text" ng-model="newQuestion.question"><!-- Question -->
       <span>Animal it's about</span><input type="text" ng-model="newQuestion.animal"><!-- Animal -->
       <span>Difficulty</span>
@@ -57,33 +57,33 @@
       </div>
       <h4>Options</h4>
       <div>
-        <input type="radio" ng-model="one" value="1">
-        <input type="text" ng-model="newQuestion.options[0]">
-      </div>
-      <div>
-        <input type="radio" ng-model="two" value="2">
+        <input name="correct" type="radio" ng-model="one" value="1">
         <input type="text" ng-model="newQuestion.options[1]">
       </div>
       <div>
-        <input type="radio" ng-model="three" value="3">
+        <input name="correct" type="radio" ng-model="two" value="2">
         <input type="text" ng-model="newQuestion.options[2]">
       </div>
       <div>
-        <input type="radio" ng-model="four" value="4">
+        <input name="correct" type="radio" ng-model="three" value="3">
         <input type="text" ng-model="newQuestion.options[3]">
+      </div>
+      <div>
+        <input name="correct" type="radio" ng-model="four" value="4">
+        <input type="text" ng-model="newQuestion.options[4]">
       </div>
 
       <!--Add question buttons-->
       <div class="buttons">
-        <button class="green">Save Question</button>
-        <button>Cancel</button>
+        <button class="green" ng-click="saveNewQuestion()">Save Question</button>
+        <button ng-click="cancelNewQuestion()">Cancel</button>
       </div>
 
       <!--Edit & Delete question buttons-->
       <div class="buttons">
-        <button class="red">Delete Question</button>
+        <button class="red" ng-click="cancelNewQuestion()">Delete Question</button>
         <button class="green">Save Changes</button>
-        <button>Cancel</button>
+        <button ng-click="cancelNewQuestion()">Cancel</button>
       </div>
 
     </form>

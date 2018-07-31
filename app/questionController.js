@@ -10,7 +10,8 @@ angular.module('myApp')
       2: '',
       3: '',
       4: ''
-    }
+    },
+    id: null
   };
   $scope.searchFilter = 'filter';
   
@@ -82,7 +83,38 @@ angular.module('myApp')
     console.log('cancel new question');
     $scope.hideModal();
   }
+
+  // editQuestion
+  $scope.fillValues = function(item){
+    $scope.showModal();
+    $scope.newQuestion = Object.assign({}, item);
+    console.log($scope.newQuestion);
+    document.getElementsByClassName("question-in")[0].value = item.question;
+    document.getElementsByClassName("animal-in")[0].value = item.animal;
+    document.getElementsByClassName("diff-in")[0].value = item.difficulty;
+    document.getElementsByClassName(`radio-${item.correct_answer}`)[0].checked = "checked";
+    document.getElementsByClassName("option-1")[0].value = item.options[1];
+    document.getElementsByClassName("option-2")[0].value = item.options[2];
+    document.getElementsByClassName("option-3")[0].value = item.options[3];
+    document.getElementsByClassName("option-4")[0].value = item.options[4];
+  };
+
+  $scope.saveChanges = function(){
+    questionService.editQuestion($scope.newQuestion)
+      .then(res => {
+        $scope.getQuestions();
+      });
+    $scope.hideModal();
+  };
   
+  $scope.deleteQuestion = function(){
+    questionService.deleteQuestion($scope.newQuestion._id)
+      .then(res => {
+        $scope.getQuestions();
+      });
+    $scope.hideModal();
+  };
+
 });
 
 /**

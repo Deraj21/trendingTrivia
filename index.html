@@ -31,7 +31,7 @@
     <div class="question-wrapper" ng-repeat="question in questions">
       <h3>{{question.question}}</h3>
       <div >{{difficultyText(question.difficulty)}}</div>
-      <div class="gear" >
+      <div class="gear" ng-click="fillValues(question)">
         <img src="./styles/assets/gear.svg" alt="">
       </div>
       <ul>
@@ -47,30 +47,30 @@
   <div class="modal">
     <form>
       <h4 class="close" ng-click="hideModal()">X</h4>
-      <span>Question</span><input type="text" ng-model="newQuestion.question"><!-- Question -->
-      <span>Animal it's about</span><input type="text" ng-model="newQuestion.animal"><!-- Animal -->
+      <span>Question</span><input class="question-in" type="text" ng-model="newQuestion.question"><!-- Question -->
+      <span>Animal it's about</span><input class="animal-in" type="text" ng-model="newQuestion.animal"><!-- Animal -->
       <span>Difficulty</span>
       <div class="range">
-        <input type="range" min="1" max="3" ng-model="newQuestion.difficulty"><!-- Difficulty -->
+        <input class="diff-in" type="range" min="1" max="3" ng-model="newQuestion.difficulty"><!-- Difficulty -->
 
         <h5>{{newQuestion.difficulty}}</h5>
       </div>
       <h4>Options</h4>
       <div>
-        <input name="correct" type="radio" ng-model="one" value="1">
-        <input type="text" ng-model="newQuestion.options[1]">
+        <input class="radio-1" name="correct" type="radio" ng-model="one" value="1">
+        <input class="option-1" type="text" ng-model="newQuestion.options[1]">
       </div>
       <div>
-        <input name="correct" type="radio" ng-model="two" value="2">
-        <input type="text" ng-model="newQuestion.options[2]">
+        <input class="radio-2" name="correct" type="radio" ng-model="two" value="2">
+        <input class="option-2" type="text" ng-model="newQuestion.options[2]">
       </div>
       <div>
-        <input name="correct" type="radio" ng-model="three" value="3">
-        <input type="text" ng-model="newQuestion.options[3]">
+        <input class="radio-3" name="correct" type="radio" ng-model="three" value="3">
+        <input class="option-3" type="text" ng-model="newQuestion.options[3]">
       </div>
       <div>
-        <input name="correct" type="radio" ng-model="four" value="4">
-        <input type="text" ng-model="newQuestion.options[4]">
+        <input class="radio-4" name="correct" type="radio" ng-model="four" value="4">
+        <input class="option-4" type="text" ng-model="newQuestion.options[4]">
       </div>
 
       <!--Add question buttons-->
@@ -81,8 +81,8 @@
 
       <!--Edit & Delete question buttons-->
       <div class="buttons">
-        <button class="red" ng-click="cancelNewQuestion()">Delete Question</button>
-        <button class="green">Save Changes</button>
+        <button class="red" ng-click="deleteQuestion()">Delete Question</button>
+        <button class="green" ng-click="saveChanges()">Save Changes</button>
         <button ng-click="cancelNewQuestion()">Cancel</button>
       </div>
 

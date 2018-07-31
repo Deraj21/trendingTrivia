@@ -21,25 +21,24 @@
       <a ng-click="filterByDifficulty('1')">Easy</a>
       <a ng-click="filterByDifficulty('2')">Medium</a>
       <a ng-click="filterByDifficulty('3')">Hard</a>
-      <p>{{difficultyFilter}}</p>
-      <a>Search by Animal</a>
+      <a ng-click="filterByAnimal()">Search by Animal</a>
     </nav>
     <div class="search">
-      <input type="text" placeholder="Animal to search by">
+      <input type="text" placeholder="Animal to search by" ng-model="searchFilter">
     </div>
 
-    <div class="question-wrapper" ng-repeat="question in questions">
-      <h3>{{question.question}}</h3>
-      <div >{{difficultyText(question.difficulty)}}</div>
-      <div class="gear" ng-click="fillValues(question)">
-        <img src="./styles/assets/gear.svg" alt="">
-      </div>
-      <ul>
-        <li ng-repeat="(key, val) in question.options"> <!-- Repeated for each option -->
-          <input type="radio">
-            <label>{{val}}</label>
-        </li>
-      </ul>
+    <div class="question-wrapper color-{{ question._id }}" ng-repeat="question in questions">
+        <h3>{{question.question}}</h3>
+        <div >{{difficultyText(question.difficulty)}}</div>
+        <div class="gear" ng-click="fillValues(question)">
+          <img src="./styles/assets/gear.svg" alt="">
+        </div>
+        <ul>
+          <li ng-repeat="(key, val) in question.options"> <!-- Repeated for each option -->
+            <input type="radio">
+              <label ng-click="userGuess(question, key)">{{val}}</label>
+          </li>
+        </ul>
     </div>
 
   </article>

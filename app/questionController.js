@@ -13,7 +13,7 @@ angular.module('myApp')
     },
     id: null
   };
-  $scope.searchFilter = 'filter';
+  $scope.searchFilter = '';
   
   $scope.getQuestions = function(){
     questionService.getQuestions()
@@ -113,6 +113,21 @@ angular.module('myApp')
         $scope.getQuestions();
       });
     $scope.hideModal();
+  };
+
+  $scope.userGuess = function(question, key){
+    let questionWrapper = document.getElementsByClassName(`color-${question._id}`)[0];
+    let color = (key == question.correct_answer) ? 'green' : 'red';
+    questionWrapper.setAttribute("style", `background-color: ${color}`);
+  };
+
+  $scope.filterByAnimal = function(){
+    questionService.getQuestions()
+      .then(response => {
+        $scope.questions = response.data.filter(question => {
+          return question.animal.includes($scope.searchFilter);
+        });
+      });
   };
 
 });
